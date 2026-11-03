@@ -1,4 +1,37 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router";
+import request from "../../utills/request";
+
+const initialValues = {
+  title: "",
+  genre: "",
+  activePlayers: 0,
+  releaseDate: "",
+  imageUrl: "",
+  summary: "",
+};
+
 export default function GameEdit() {
+  const {gameId}=useParams();
+  const [game,setGame]=useState(initialValues)
+
+
+  useEffect(()=>{
+    request(`/games?id=eq.${gameId}`)
+    .then(data=>{
+      setGame(data[0]);
+    })
+  },[gameId])
+
+  const changeHandler = (e) => {
+    setGame((state) => ({
+      ...state,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+
   return (
     // <!-- add Page ( Only htmlFor logged-in users ) -->
     <section id="edit-page">
@@ -13,6 +46,8 @@ export default function GameEdit() {
               id="gameName"
               name="gameName"
               placeholder="Enter game title..."
+              value={values.title}
+              onChange={changeHandler}
             />
           </div>
 
@@ -23,6 +58,8 @@ export default function GameEdit() {
               id="genre"
               name="genre"
               placeholder="Enter game genre..."
+              value={values.genre}
+              onChange={changeHandler}
             />
           </div>
 
@@ -34,12 +71,15 @@ export default function GameEdit() {
               name="activePlayers"
               min="0"
               placeholder="0"
+              value={values.activePlayers}
+              onChange={changeHandler}
             />
           </div>
 
           <div className="form-group-half">
             <label htmlFor="releaseDate">Release Date:</label>
-            <input type="date" id="releaseDate" name="releaseDate" />
+            <input type="date" id="releaseDate" name="releaseDate" value={values.releaseDate}
+              onChange={changeHandler}/>
           </div>
 
           <div className="form-group-full">
@@ -49,6 +89,8 @@ export default function GameEdit() {
               id="imageUrl"
               name="imageUrl"
               placeholder="Enter image URL..."
+              value={values.imageUrl}
+              onChange={changeHandler}
             />
           </div>
 
@@ -59,6 +101,8 @@ export default function GameEdit() {
               id="summary"
               rows="5"
               placeholder="Write a brief summary..."
+              value={values.summary}
+              onChange={changeHandler}
             ></textarea>
           </div>
 

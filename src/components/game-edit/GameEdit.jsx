@@ -13,16 +13,14 @@ const initialValues = {
 };
 
 export default function GameEdit() {
-  const {gameId}=useParams();
-  const [game,setGame]=useState(initialValues)
+  const { gameId } = useParams();
+  const [game, setGame] = useState(initialValues);
 
-
-  useEffect(()=>{
-    request(`/games?id=eq.${gameId}`)
-    .then(data=>{
+  useEffect(() => {
+    request(`/games?id=eq.${gameId}`).then((data) => {
       setGame(data[0]);
-    })
-  },[gameId])
+    });
+  }, [gameId]);
 
   const changeHandler = (e) => {
     setGame((state) => ({
@@ -30,7 +28,6 @@ export default function GameEdit() {
       [e.target.name]: e.target.value,
     }));
   };
-
 
   return (
     // <!-- add Page ( Only htmlFor logged-in users ) -->
@@ -46,7 +43,7 @@ export default function GameEdit() {
               id="gameName"
               name="gameName"
               placeholder="Enter game title..."
-              value={values.title}
+              value={game.title}
               onChange={changeHandler}
             />
           </div>
@@ -58,7 +55,7 @@ export default function GameEdit() {
               id="genre"
               name="genre"
               placeholder="Enter game genre..."
-              value={values.genre}
+              value={game.genre}
               onChange={changeHandler}
             />
           </div>
@@ -71,15 +68,20 @@ export default function GameEdit() {
               name="activePlayers"
               min="0"
               placeholder="0"
-              value={values.activePlayers}
+              value={game.activePlayers}
               onChange={changeHandler}
             />
           </div>
 
           <div className="form-group-half">
             <label htmlFor="releaseDate">Release Date:</label>
-            <input type="date" id="releaseDate" name="releaseDate" value={values.releaseDate}
-              onChange={changeHandler}/>
+            <input
+              type="date"
+              id="releaseDate"
+              name="releaseDate"
+              value={game.releaseDate}
+              onChange={changeHandler}
+            />
           </div>
 
           <div className="form-group-full">
@@ -89,7 +91,7 @@ export default function GameEdit() {
               id="imageUrl"
               name="imageUrl"
               placeholder="Enter image URL..."
-              value={values.imageUrl}
+              value={game.imageUrl}
               onChange={changeHandler}
             />
           </div>
@@ -101,7 +103,7 @@ export default function GameEdit() {
               id="summary"
               rows="5"
               placeholder="Write a brief summary..."
-              value={values.summary}
+              value={game.summary}
               onChange={changeHandler}
             ></textarea>
           </div>

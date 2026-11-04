@@ -8,6 +8,7 @@ export default function GameDetails({ user }) {
   const { gameId } = useParams();
   const navigate = useNavigate();
   const [game, setGame] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     request(`/games?id=eq.${gameId}`)
@@ -79,10 +80,18 @@ export default function GameDetails({ user }) {
         </div>
       </div>
 
-      <CommentList gameId={gameId} />
+      <CommentList gameId={gameId} refresh={refresh} />
       {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
 
-      {user && <CreateComment user={user} gameId={gameId} />}
+      {user && (
+        <CreateComment
+          user={user}
+          gameId={gameId}
+          onCreate={() => {
+            setRefresh((state) => !state);
+          }}
+        />
+      )}
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import request from "../../utills/request";
 
-export default function CreateComment({ user, gameId }) {
+export default function CreateComment({ user, gameId, onCreate }) {
   const addCommentAction = async (formData) => {
     const newComment = {
       text: formData.get("text"),
@@ -10,6 +10,7 @@ export default function CreateComment({ user, gameId }) {
 
     try {
       await request("/comments", "POST", newComment);
+      onCreate();
     } catch (error) {
       alert(error);
       return;

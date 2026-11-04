@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import request from "../../utills/request";
 import CommentItem from "./comment-item/CommentItem";
 
-export default function CommentList({ gameId }) {
+export default function CommentList({ gameId, refresh }) {
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    request(`/comments?game_id=eq.${gameId}`).then((result) =>
-      setComments(result),
+    request(`/comments?game_id=eq.${gameId}&order=created_at.desc`).then(
+      (result) => setComments(result),
     );
-  }, [gameId]);
+  }, [gameId, refresh]);
 
   return (
     <div className="details-comments">

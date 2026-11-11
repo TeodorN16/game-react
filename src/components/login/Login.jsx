@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router";
 
 export default function Login({ onLogin }) {
-  const navigate = useNavigate();
-
   const submitAction = (formdata) => {
     const email = formdata.get("email");
     const password = formdata.get("password");
@@ -10,9 +8,7 @@ export default function Login({ onLogin }) {
       alert("Email and password must be filled");
       return;
     }
-    onLogin({ email });
-
-    navigate("/");
+    onLogin({ email, password });
   };
   return (
     // <!-- Login Page ( Only htmlFor Guest users ) -->

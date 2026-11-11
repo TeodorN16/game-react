@@ -23,7 +23,7 @@ export default function Register({ onRegister }) {
     }
 
     //proceed with registration logic (e.g , API call)
-    onRegister({ email });
+    onRegister({ email, password });
 
     //redirect to home page
     navigate("/");

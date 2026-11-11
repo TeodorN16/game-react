@@ -10,11 +10,19 @@ import Register from "./components/register/Register";
 import GameEdit from "./components/game-edit/GameEdit";
 import { useState } from "react";
 import Logout from "./components/logout/Logout";
+import request from "./utills/request";
+import { register } from "./api/auth-api";
 
 function App() {
   const [user, setUser] = useState(null);
-  const userAuthHandler = (userData) => {
-    setUser(userData);
+  const userAuthHandler = async (userData) => {
+    //authenticate with supabase auth
+    try {
+      const result = await register(userData);
+      console.log(result);
+    } catch (error) {
+      alert(error.message);
+    }
   };
   const logoutAction = () => {
     setUser(null);

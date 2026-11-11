@@ -1,7 +1,9 @@
-const url = 'https://ljitxmnujzhqmcvdmnej.supabase.co/rest/v1'
+
+const restUrl = 'https://ljitxmnujzhqmcvdmnej.supabase.co/rest/v1'
+const authUrl = 'https://ljitxmnujzhqmcvdmnej.supabase.co/auth/v1'
 const apiKey = import.meta.env.VITE_API_KEY
 
-export default async function request(path="/",method="GET",data=null,opts={}){
+async function baseRequest(url,path='/',method="GET",data=null,opts={}){
     const options = {
         headers:{
             apiKey,
@@ -28,5 +30,8 @@ export default async function request(path="/",method="GET",data=null,opts={}){
     
     return response.json()
 
-    
 }
+export default async function request(path="/",method="GET",data=null,opts={}){
+   return baseRequest(restUrl,path,method,data,opts)
+}
+export const authRequest=baseRequest.bind(null,authUrl);

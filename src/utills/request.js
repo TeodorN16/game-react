@@ -5,10 +5,12 @@ const apiKey = import.meta.env.VITE_API_KEY
 
 async function baseRequest(url,path='/',method="GET",data=null,opts={}){
     const options = {
+        ...opts,
         headers:{
+            ...opts.headers,
             apiKey,
+            
         },
-        ...opts
     };
 
     if(method!=="GET"){

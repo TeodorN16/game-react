@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import request from "../../utills/request";
 import { Navigate, useNavigate } from "react-router";
+import { gameApi } from "../../api";
+import AuthContext from "../../contexts/auth-context";
 
 const initialValues = {
   title: "",
@@ -12,6 +14,7 @@ const initialValues = {
 };
 
 export default function GameCreate() {
+  const { accessToken } = useContext(AuthContext);
   const [values, setValues] = useState(initialValues);
   const navigate = useNavigate();
 
@@ -24,10 +27,7 @@ export default function GameCreate() {
 
   const submitAction = async () => {
     try {
-      await request("/games", "POST", {
-        ...values,
-        activePlayers: Number(activePlayers),
-      });
+      await gameApi.create(values, accessToken);
       navigate("/");
     } catch (error) {
       alert(error.message);

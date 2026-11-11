@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import Catalog from "./components/catalog/Catalog";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
@@ -14,12 +14,16 @@ import request from "./utills/request";
 import { authApi } from "./api";
 
 function App() {
+  const navigate = useNavigate();
   const [auth, setAuth] = useState(null);
   const register = async (userData) => {
     //authenticate with supabase auth
     try {
       const result = await authApi.register(userData);
       setAuth(result);
+
+      //redirect to home page
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }
@@ -35,7 +39,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route path="games/:gameId" element={<GameDetails user={auth} />} />
+        <Route
+          path="games/:gameId"
+          element={<GameDetails user={auth?.user} />}
+        />
         <Route path="/games/create" element={<GameCreate />} />
         <Route path="login" element={<Login onLogin={register} />} />
         <Route path="register" element={<Register onRegister={register} />} />

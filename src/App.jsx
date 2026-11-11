@@ -12,6 +12,7 @@ import { useState } from "react";
 import Logout from "./components/logout/Logout";
 import request from "./utills/request";
 import { authApi } from "./api";
+import AuthContext from "./contexts/auth-context";
 
 function App() {
   const navigate = useNavigate();
@@ -40,9 +41,16 @@ function App() {
   const logoutAction = () => {
     setAuth(null);
   };
+  const contextValue = {
+    accessToken: auth?.access_token,
+    user: auth?.user,
+    isAuthenticated: !!auth,
+    register,
+    login,
+  };
 
   return (
-    <>
+    <AuthContext.Provider value={contextValue}>
       <Header isAuthenticated={!!auth} />
       {auth && <p>Welcome,{auth.email}</p>}
       <Routes>
@@ -60,7 +68,7 @@ function App() {
       </Routes>
 
       <Footer />
-    </>
+    </AuthContext.Provider>
   );
 }
 

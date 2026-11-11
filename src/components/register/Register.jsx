@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router";
 
 export default function Register({ onRegister }) {
-  const navigate = useNavigate();
-
   const registerAction = (formData) => {
     //prevent form from page refresh
 

@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { logout } from "../api/auth-api";
 
 const AuthContext = createContext({
     accessToken:'', 
@@ -6,6 +7,7 @@ const AuthContext = createContext({
     isAuthenticated:false,
     register(){},
     login(){},
+    logout(){},
 });
 
 export default AuthContext;

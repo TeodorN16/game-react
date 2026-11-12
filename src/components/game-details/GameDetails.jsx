@@ -90,7 +90,7 @@ export default function GameDetails() {
       <CommentList gameId={gameId} refresh={refresh} />
       {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
 
-      {user && (
+      {user && !isOwner && (
         <CreateComment
           user={user}
           gameId={gameId}

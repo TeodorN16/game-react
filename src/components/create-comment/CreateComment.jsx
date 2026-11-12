@@ -1,6 +1,7 @@
+import { commentApi } from "../../api";
 import request from "../../utills/request";
 
-export default function CreateComment({ user, gameId, onCreate }) {
+export default function CreateComment({ user, accessToken, gameId, onCreate }) {
   const addCommentAction = async (formData) => {
     const newComment = {
       text: formData.get("text"),
@@ -9,7 +10,7 @@ export default function CreateComment({ user, gameId, onCreate }) {
     };
 
     try {
-      await request("/comments", "POST", newComment);
+      await commentApi.create(newComment, accessToken);
       onCreate();
     } catch (error) {
       alert(error);

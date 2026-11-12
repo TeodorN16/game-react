@@ -93,6 +93,7 @@ export default function GameDetails() {
       {user && !isOwner && (
         <CreateComment
           user={user}
+          accessToken={accessToken}
           gameId={gameId}
           onCreate={() => {
             setRefresh((state) => !state);

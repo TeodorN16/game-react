@@ -22,6 +22,13 @@ export const remove = async(gameId,accessToken)=>{
         }
     });
 }
+export const update = async(gameId,data,accessToken)=>{
+    await request(`/games?id=eq.${gameId}`,"PUT",data,{
+        headers:{
+            ...getAuthHeader(accessToken)
+        }
+    }) 
+}
 function getAuthHeader(accessToken){
     return {
         

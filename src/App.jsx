@@ -56,10 +56,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route
-          path="games/:gameId"
-          element={<GameDetails user={auth?.user} />}
-        />
+        <Route path="games/:gameId" element={<GameDetails />} />
         <Route path="/games/create" element={<GameCreate />} />
         <Route path="login" element={<Login onLogin={login} />} />
         <Route path="register" element={<Register onRegister={register} />} />

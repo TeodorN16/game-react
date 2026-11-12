@@ -15,6 +15,13 @@ export const create = (data,accessToken)=>{
         }
     })
 }
+export const remove = async(gameId,accessToken)=>{
+    await request(`/games?id=eq.${gameId}`, "DELETE",null,{
+        headers: {
+           ...getAuthHeader(accessToken)
+        }
+    });
+}
 function getAuthHeader(accessToken){
     return {
         
